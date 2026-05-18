@@ -82,7 +82,7 @@ Voir **`.env.local.example`** (liste complète).
 | `ADMIN_EMAILS` | Oui | Accès `/admin` |
 | `NEXT_PUBLIC_SITE_URL` | Recommandé | Callbacks, SEO |
 
-**Ne jamais committer `.env.local`.**
+Les fichiers **`.env`** et **`.env.local`** contiennent les clés du projet (commités volontairement). Voir **`PROJECT_CONFIG.md`** pour le détail complet.
 
 ## Scripts
 
