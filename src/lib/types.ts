@@ -36,6 +36,7 @@ export type Client = {
   company: string | null;
   phone: string | null;
   tracking_code: string | null;
+  is_demo?: boolean;
   created_at: string;
 };
 
@@ -44,11 +45,13 @@ export type TaskPriority = "low" | "medium" | "high" | "urgent";
 
 export type TeamMember = {
   id: string;
+  user_id: string | null;
   name: string;
   role: string;
   email: string | null;
   avatar_color: string;
   active: boolean;
+  is_demo?: boolean;
   created_at: string;
 };
 

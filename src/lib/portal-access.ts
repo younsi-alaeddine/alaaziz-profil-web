@@ -25,6 +25,15 @@ export async function getPortalContext(): Promise<PortalContext | null> {
   } = await supabase.auth.getUser();
 
   if (user) {
+    const { data: team } = await supabase
+      .from("team_members")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("active", true)
+      .maybeSingle();
+
+    if (team) return null;
+
     const { data: client } = await supabase
       .from("clients")
       .select("*")

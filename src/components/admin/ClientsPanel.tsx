@@ -86,7 +86,14 @@ export function ClientsPanel({
               className="glass rounded-xl p-5 border border-white/5 flex flex-wrap justify-between gap-4"
             >
               <div>
-                <p className="font-semibold">{c.name}</p>
+                <p className="font-semibold flex items-center gap-2 flex-wrap">
+                  {c.name}
+                  {c.is_demo && (
+                    <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-200">
+                      Démo
+                    </span>
+                  )}
+                </p>
                 <p className="text-sm text-neutral-400">{c.email}</p>
                 {c.company && <p className="text-xs text-neutral-500 mt-1">{c.company}</p>}
                 {c.tracking_code ? (

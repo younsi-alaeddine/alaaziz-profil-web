@@ -1,7 +1,9 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 
-const COOKIE_NAME = "portal_guest";
+import { PORTAL_GUEST_COOKIE } from "@/lib/portal-guest-cookie-edge";
+
+const COOKIE_NAME = PORTAL_GUEST_COOKIE;
 const MAX_AGE_SEC = 60 * 60 * 24 * 7; // 7 jours
 
 function getSecret(): string {
@@ -36,9 +38,8 @@ export async function clearPortalGuestSession() {
   jar.delete(COOKIE_NAME);
 }
 
-export async function getPortalGuestClientId(): Promise<string | null> {
-  const jar = await cookies();
-  const raw = jar.get(COOKIE_NAME)?.value;
+/** Utilisable dans le middleware (valeur brute du cookie). */
+export function parseGuestClientIdFromCookie(raw: string | undefined): string | null {
   if (!raw) return null;
 
   const parts = raw.split(".");
@@ -62,4 +63,9 @@ export async function getPortalGuestClientId(): Promise<string | null> {
   }
 
   return clientId;
+}
+
+export async function getPortalGuestClientId(): Promise<string | null> {
+  const jar = await cookies();
+  return parseGuestClientIdFromCookie(jar.get(COOKIE_NAME)?.value);
 }

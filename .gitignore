@@ -28,14 +28,17 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (other locals stay ignored; .env.local is committed on purpose)
-.env*.local
-!.env.local
+# env (secrets → .env.local + Vercel dashboard uniquement)
 .env
-!.env
+.env.local
+.env*.local
 
 # vercel
 .vercel
+
+# outils / cache IDE (pas le code applicatif)
+.agents/
+scripts/
 
 # typescript
 *.tsbuildinfo

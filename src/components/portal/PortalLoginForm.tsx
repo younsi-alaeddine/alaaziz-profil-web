@@ -95,6 +95,12 @@ export function PortalLoginForm() {
         >
           J&apos;ai un code de suivi (sans mot de passe)
         </Link>
+        <p className="text-center text-xs text-neutral-600">
+          Membre de l&apos;équipe ?{" "}
+          <Link href="/equipe/login" className="text-emerald-500 hover:text-emerald-400">
+            Connexion équipe
+          </Link>
+        </p>
       </form>
     </div>
   );
