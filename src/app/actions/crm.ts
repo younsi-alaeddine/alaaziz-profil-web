@@ -9,6 +9,7 @@ import {
 import { notifyUser } from "@/lib/notifications";
 import { isServiceRoleConfigured } from "@/lib/supabase/admin";
 import { provisionClientPortalAccess } from "@/lib/provision-client-portal";
+import { ensureClientTrackingCode } from "@/app/actions/portal-tracking";
 import type {
   ProjectStatus,
   StageStatus,
@@ -72,6 +73,7 @@ export async function createProjectFromContact(contactId: string) {
       return { ok: false as const, error: clientError?.message ?? "Erreur client." };
     }
     client = newClient;
+    await ensureClientTrackingCode(newClient.id);
   }
 
   const { data: clientRow } = await supabase
@@ -154,9 +156,11 @@ export async function createProjectFromContact(contactId: string) {
   revalidatePath("/admin/demandes");
   revalidatePath("/admin/projets");
   revalidatePath("/admin/clients");
+  const trackingCode = await ensureClientTrackingCode(client.id);
   return {
     ok: true as const,
     projectId: project.id,
+    trackingCode: trackingCode ?? undefined,
     portalInvite,
   };
 }

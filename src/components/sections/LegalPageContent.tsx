@@ -1,28 +1,41 @@
 "use client";
 
 import { PageHeader } from "@/components/sections/PageHeader";
+import { PageSection } from "@/components/layout/PageSection";
 import { useSiteContent } from "@/components/SiteContentProvider";
 
-export function MentionsLegalesContent() {
+type LegalDoc = "mentions" | "privacy";
+
+function LegalDocument({ type }: { type: LegalDoc }) {
   const { legal } = useSiteContent();
+  const title = type === "mentions" ? legal.mentionsTitle : legal.privacyTitle;
+  const body = type === "mentions" ? legal.mentionsBody : legal.privacyBody;
+
   return (
-    <section className="px-6 py-16 max-w-3xl mx-auto">
-      <PageHeader label="Légal" labelColor="text-neutral-400" title={legal.mentionsTitle} center />
-      <div className="glass rounded-2xl p-8 border border-white/5 text-sm text-neutral-400 leading-relaxed anim whitespace-pre-line">
-        {legal.mentionsBody}
+    <PageSection
+      variant="narrow"
+      heroBanner
+      header={
+        <PageHeader
+          label="Légal"
+          labelColor="text-neutral-400"
+          title={title}
+          center
+          hero
+        />
+      }
+    >
+      <div className="glass rounded-2xl p-6 sm:p-8 md:p-10 border border-white/5 text-sm sm:text-base text-neutral-400 leading-relaxed anim whitespace-pre-line">
+        {body}
       </div>
-    </section>
+    </PageSection>
   );
 }
 
+export function MentionsLegalesContent() {
+  return <LegalDocument type="mentions" />;
+}
+
 export function ConfidentialiteContent() {
-  const { legal } = useSiteContent();
-  return (
-    <section className="px-6 py-16 max-w-3xl mx-auto">
-      <PageHeader label="Légal" labelColor="text-neutral-400" title={legal.privacyTitle} center />
-      <div className="glass rounded-2xl p-8 border border-white/5 text-sm text-neutral-400 leading-relaxed anim whitespace-pre-line">
-        {legal.privacyBody}
-      </div>
-    </section>
-  );
+  return <LegalDocument type="privacy" />;
 }

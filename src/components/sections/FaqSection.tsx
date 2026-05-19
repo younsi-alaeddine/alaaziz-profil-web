@@ -9,7 +9,7 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-3">
+    <div className="max-w-4xl mx-auto w-full space-y-3">
       {faq.map((item, i) => {
         const isOpen = open === i;
         return (

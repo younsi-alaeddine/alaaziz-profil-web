@@ -1,12 +1,23 @@
-export const NAV_LINKS = [
-  { href: "/about", label: "À propos" },
-  { href: "/services", label: "Services" },
-  { href: "/skills", label: "Compétences" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/pricing", label: "Tarifs" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-] as const;
+import {
+  sectionHref,
+  SECTION_IDS,
+  NAV_SECTION_IDS,
+} from "@/lib/sections";
+
+const NAV_LABELS: Record<(typeof NAV_SECTION_IDS)[number], string> = {
+  [SECTION_IDS.about]: "À propos",
+  [SECTION_IDS.services]: "Services",
+  [SECTION_IDS.skills]: "Compétences",
+  [SECTION_IDS.portfolio]: "Portfolio",
+  [SECTION_IDS.pricing]: "Tarifs",
+  [SECTION_IDS.faq]: "FAQ",
+  [SECTION_IDS.contact]: "Contact",
+};
+
+export const NAV_LINKS = NAV_SECTION_IDS.map((id) => ({
+  href: sectionHref(id),
+  label: NAV_LABELS[id],
+}));
 
 export const SERVICES = [
   {

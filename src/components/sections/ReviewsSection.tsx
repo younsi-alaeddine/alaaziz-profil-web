@@ -7,7 +7,7 @@ import { useSiteContent } from "@/components/SiteContentProvider";
 export function ReviewsSection() {
   const { reviews } = useSiteContent();
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 w-full">
       {reviews.map((r, i) => (
         <article key={r.name} className="anim card-hover glass rounded-2xl p-6 relative" style={{ transitionDelay: `${i * 100}ms` }}>
           <Quote className="w-8 h-8 text-violet-500/30 mb-4" />

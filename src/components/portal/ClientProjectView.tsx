@@ -30,6 +30,7 @@ type Props = {
   messages: ProjectMessage[];
   documents: ProjectDocument[];
   invoices: Invoice[];
+  guestMode?: boolean;
 };
 
 export function ClientProjectView({
@@ -38,6 +39,7 @@ export function ClientProjectView({
   messages: initialMessages,
   documents,
   invoices,
+  guestMode = false,
 }: Props) {
   const { toast } = useToast();
   const [messages, setMessages] = useState(initialMessages);
@@ -72,13 +74,18 @@ export function ClientProjectView({
 
       <section className="glass rounded-2xl p-6 border border-white/5 space-y-4">
         <h2 className="font-semibold">Validation client</h2>
+        {guestMode && (
+          <p className="text-xs text-neutral-500">
+            Mode consultation — connectez-vous avec un compte complet pour valider les étapes.
+          </p>
+        )}
         {stages.map((stage) => {
           const v = stage.project_validations;
           if (!v || stage.status !== "completed") return null;
           return (
             <div key={stage.id} className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
               <p className="font-medium text-sm">{stage.title}</p>
-              {v.decision === "pending" ? (
+              {v.decision === "pending" && !guestMode ? (
                 <div className="flex flex-wrap gap-2 mt-3">
                   <button
                     type="button"
@@ -192,41 +199,45 @@ export function ClientProjectView({
             </li>
           ))}
         </ul>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!msg.trim()) return;
-            startTransition(async () => {
-              const r = await addProjectMessage(project.id, msg, false);
-              if (r.ok) {
-                setMessages((prev) => [
-                  ...prev,
-                  {
-                    id: crypto.randomUUID(),
-                    project_id: project.id,
-                    author_id: null,
-                    author_role: "client",
-                    body: msg,
-                    created_at: new Date().toISOString(),
-                  },
-                ]);
-                setMsg("");
-                toast("Message envoyé", "success");
-              } else toast(r.error ?? "Erreur", "error");
-            });
-          }}
-          className="flex gap-2"
-        >
-          <input
-            value={msg}
-            onChange={(e) => setMsg(e.target.value)}
-            className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm"
-            placeholder="Votre message…"
-          />
-          <button type="submit" disabled={pending} className="bg-grad px-4 py-2 rounded-xl text-sm">
-            {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Envoyer"}
-          </button>
-        </form>
+        {!guestMode ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!msg.trim()) return;
+              startTransition(async () => {
+                const r = await addProjectMessage(project.id, msg, false);
+                if (r.ok) {
+                  setMessages((prev) => [
+                    ...prev,
+                    {
+                      id: crypto.randomUUID(),
+                      project_id: project.id,
+                      author_id: null,
+                      author_role: "client",
+                      body: msg,
+                      created_at: new Date().toISOString(),
+                    },
+                  ]);
+                  setMsg("");
+                  toast("Message envoyé", "success");
+                } else toast(r.error ?? "Erreur", "error");
+              });
+            }}
+            className="flex gap-2"
+          >
+            <input
+              value={msg}
+              onChange={(e) => setMsg(e.target.value)}
+              className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm"
+              placeholder="Votre message…"
+            />
+            <button type="submit" disabled={pending} className="bg-grad px-4 py-2 rounded-xl text-sm">
+              {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Envoyer"}
+            </button>
+          </form>
+        ) : (
+          <p className="text-xs text-neutral-500">Messagerie réservée aux comptes avec mot de passe.</p>
+        )}
       </section>
     </div>
   );

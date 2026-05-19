@@ -35,7 +35,100 @@ export type Client = {
   name: string;
   company: string | null;
   phone: string | null;
+  tracking_code: string | null;
   created_at: string;
+};
+
+export type TaskStatus = "todo" | "in_progress" | "review" | "done";
+export type TaskPriority = "low" | "medium" | "high" | "urgent";
+
+export type TeamMember = {
+  id: string;
+  name: string;
+  role: string;
+  email: string | null;
+  avatar_color: string;
+  active: boolean;
+  created_at: string;
+};
+
+export type ProjectTask = {
+  id: string;
+  project_id: string;
+  assignee_id: string | null;
+  title: string;
+  description: string | null;
+  status: TaskStatus;
+  priority: TaskPriority;
+  due_date: string | null;
+  sort_order: number;
+  created_at: string;
+  team_members?: TeamMember | null;
+  projects?: { title: string } | null;
+};
+
+export type SocialPlatform = "facebook" | "instagram" | "linkedin" | "tiktok";
+
+export type SocialAccount = {
+  id: string;
+  project_id: string | null;
+  client_id: string | null;
+  platform: SocialPlatform;
+  account_name: string;
+  profile_url: string | null;
+  status: string;
+  notes: string | null;
+  created_at: string;
+};
+
+export type SocialRequestStatus =
+  | "brief"
+  | "creation"
+  | "validation"
+  | "planifie"
+  | "publie"
+  | "annule";
+
+export type SocialContentRequest = {
+  id: string;
+  project_id: string | null;
+  social_account_id: string | null;
+  assignee_id: string | null;
+  title: string;
+  content_type: string;
+  status: SocialRequestStatus;
+  scheduled_for: string | null;
+  brief: string | null;
+  created_at: string;
+  social_accounts?: SocialAccount | null;
+  team_members?: TeamMember | null;
+};
+
+export type DigitalRequestStatus =
+  | "nouveau"
+  | "qualification"
+  | "en_cours"
+  | "en_attente_client"
+  | "livre"
+  | "annule";
+
+export type DigitalRequest = {
+  id: string;
+  parent_id: string | null;
+  project_id: string | null;
+  contact_request_id: string | null;
+  client_id: string | null;
+  title: string;
+  category: string;
+  level: number;
+  status: DigitalRequestStatus;
+  priority: TaskPriority;
+  assignee_id: string | null;
+  description: string | null;
+  budget: string | null;
+  created_at: string;
+  team_members?: TeamMember | null;
+  children?: DigitalRequest[];
 };
 
 export type Project = {

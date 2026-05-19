@@ -2,9 +2,7 @@
 
 import { PageHeader } from "@/components/sections/PageHeader";
 import { useSiteContent } from "@/components/SiteContentProvider";
-import type { SiteContentBundle } from "@/lib/content-defaults";
-
-type PageKey = keyof SiteContentBundle["pages"];
+import type { PageKey } from "@/lib/sections";
 
 export function DynamicPageHeader({ pageKey }: { pageKey: PageKey }) {
   const { pages } = useSiteContent();
@@ -24,6 +22,7 @@ export function DynamicPageHeader({ pageKey }: { pageKey: PageKey }) {
       }
       subtitle={p.subtitle}
       center
+      hero
     />
   );
 }

@@ -9,8 +9,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 py-12 px-6">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <footer className="w-full border-t border-white/5 py-12 md:py-16">
+      <div className="site-container space-y-8">
         <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
           <Link href="/mentions-legales" className="hover:text-white transition">
             Mentions légales
@@ -18,7 +18,10 @@ export function Footer() {
           <Link href="/confidentialite" className="hover:text-white transition">
             Confidentialité
           </Link>
-          <Link href="/portal/login" className="hover:text-violet-400 transition">
+          <Link href="/portal/suivi" className="hover:text-violet-400 transition">
+            Suivi projet
+          </Link>
+          <Link href="/portal/login" className="hover:text-white transition">
             Espace client
           </Link>
         </div>

@@ -32,7 +32,7 @@ const COLOR_RING: Record<string, string> = {
 export function ServicesGrid() {
   const { services } = useSiteContent();
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 lg:gap-8 w-full">
       {services.map((s, i) => {
         const Icon = ICONS[s.icon] ?? Globe;
         const ring = COLOR_RING[s.color] ?? COLOR_RING.violet;

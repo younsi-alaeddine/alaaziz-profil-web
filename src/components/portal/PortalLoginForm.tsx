@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, Shield } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -88,6 +89,12 @@ export function PortalLoginForm() {
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
           Accéder à mon espace
         </button>
+        <Link
+          href="/portal/suivi"
+          className="block text-center text-sm text-violet-400 hover:text-violet-300 pt-2"
+        >
+          J&apos;ai un code de suivi (sans mot de passe)
+        </Link>
       </form>
     </div>
   );

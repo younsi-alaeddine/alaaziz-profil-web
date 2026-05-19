@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { Check } from "lucide-react";
+import { ScrollLink } from "@/components/layout/ScrollLink";
 import { useSiteContent } from "@/components/SiteContentProvider";
+import { CONTACT_SECTION_HREF } from "@/lib/sections";
 
 export function PricingSection() {
   const { plans } = useSiteContent();
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
       {plans.map((plan, i) => (
         <article
           key={plan.name}
@@ -27,14 +28,14 @@ export function PricingSection() {
               </li>
             ))}
           </ul>
-          <Link
-            href="/contact"
+          <ScrollLink
+            href={CONTACT_SECTION_HREF}
             className={`block text-center py-3 rounded-xl text-sm font-medium transition ${
               plan.highlight ? "bg-grad hover:opacity-90" : "glass-light hover:bg-white/10"
             }`}
           >
             Choisir ce plan
-          </Link>
+          </ScrollLink>
         </article>
       ))}
     </div>

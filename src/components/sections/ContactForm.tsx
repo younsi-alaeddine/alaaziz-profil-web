@@ -42,7 +42,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="glass rounded-2xl p-8 space-y-5 anim max-w-2xl mx-auto relative">
+    <form onSubmit={onSubmit} className="glass rounded-2xl p-6 sm:p-8 md:p-10 space-y-5 anim max-w-3xl mx-auto relative w-full">
       <input
         type="text"
         name="website"

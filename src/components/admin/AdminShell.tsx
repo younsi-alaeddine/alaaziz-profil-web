@@ -11,7 +11,9 @@ import {
   LayoutDashboard,
   LogOut,
   Settings,
+  Share2,
   Terminal,
+  UserCog,
   Users,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -21,6 +23,8 @@ const NAV = [
   { href: "/admin/demandes", label: "Demandes", icon: Inbox },
   { href: "/admin/projets", label: "Projets", icon: FolderKanban },
   { href: "/admin/clients", label: "Clients", icon: Users },
+  { href: "/admin/equipe", label: "Équipe", icon: UserCog },
+  { href: "/admin/digital", label: "Digital & Social", icon: Share2 },
   { href: "/admin/calendrier", label: "Calendrier", icon: Calendar },
   { href: "/admin/contenu", label: "Contenu site", icon: FileText },
   { href: "/admin/parametres", label: "Paramètres", icon: Settings },

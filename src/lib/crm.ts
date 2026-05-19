@@ -70,6 +70,53 @@ export function computeProgressFromStages(
   return Math.round((completed / stages.length) * 100);
 }
 
+export const TASK_STATUS_LABELS = {
+  todo: "À faire",
+  in_progress: "En cours",
+  review: "Revue",
+  done: "Terminé",
+} as const;
+
+export const TASK_PRIORITY_LABELS = {
+  low: "Basse",
+  medium: "Moyenne",
+  high: "Haute",
+  urgent: "Urgente",
+} as const;
+
+export const SOCIAL_PLATFORM_LABELS = {
+  facebook: "Facebook",
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  tiktok: "TikTok",
+} as const;
+
+export const DIGITAL_STATUS_LABELS = {
+  nouveau: "Nouveau",
+  qualification: "Qualification",
+  en_cours: "En cours",
+  en_attente_client: "Attente client",
+  livre: "Livré",
+  annule: "Annulé",
+} as const;
+
+export const DIGITAL_CATEGORIES = [
+  { id: "web", label: "Site / App web" },
+  { id: "seo", label: "SEO / Référencement" },
+  { id: "social", label: "Réseaux sociaux" },
+  { id: "ads", label: "Publicité digitale" },
+  { id: "branding", label: "Branding / Design" },
+  { id: "autre", label: "Autre" },
+] as const;
+
+export const TEAM_ROLE_LABELS: Record<string, string> = {
+  frontend: "Frontend",
+  backend: "Backend",
+  design: "Design",
+  marketing: "Marketing / Social",
+  lead: "Lead projet",
+};
+
 export function formatEuro(cents: number, currency = "EUR"): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",

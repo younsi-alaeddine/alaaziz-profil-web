@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Home } from "lucide-react";
+import { CONTACT_SECTION_HREF } from "@/lib/sections";
 
 export default function NotFound() {
   return (
@@ -18,7 +19,7 @@ export default function NotFound() {
             <Home className="w-4 h-4" /> Accueil
           </Link>
           <Link
-            href="/contact"
+            href={`/${CONTACT_SECTION_HREF}`}
             className="glass-light px-5 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 hover:bg-white/10 transition"
           >
             <ArrowLeft className="w-4 h-4" /> Contact

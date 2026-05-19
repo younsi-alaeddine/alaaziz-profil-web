@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { ScrollLink } from "@/components/layout/ScrollLink";
 import { useSiteContent } from "@/components/SiteContentProvider";
+import { CONTACT_SECTION_HREF } from "@/lib/sections";
 
 const TAG_COLORS: Record<string, string> = {
   violet: "bg-violet-500/20 text-violet-300",
@@ -16,7 +17,7 @@ const TAG_COLORS: Record<string, string> = {
 export function PortfolioGrid() {
   const { portfolio } = useSiteContent();
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid sm:grid-cols-2 gap-6 md:gap-8 lg:gap-10 w-full">
       {portfolio.map((p, i) => (
         <article key={p.title} className="anim card-hover glass rounded-2xl overflow-hidden group" style={{ transitionDelay: `${i * 80}ms` }}>
           <div className="relative aspect-video overflow-hidden">
@@ -32,9 +33,12 @@ export function PortfolioGrid() {
             </div>
             <h3 className="font-semibold text-lg mb-2">{p.title}</h3>
             <p className="text-sm text-neutral-400 mb-4">{p.desc}</p>
-            <Link href="/contact" className="text-sm text-violet-400 hover:text-violet-300 inline-flex items-center gap-1">
+            <ScrollLink
+              href={CONTACT_SECTION_HREF}
+              className="text-sm text-violet-400 hover:text-violet-300 inline-flex items-center gap-1"
+            >
               Discuter du projet <ExternalLink className="w-3 h-3" />
-            </Link>
+            </ScrollLink>
           </div>
         </article>
       ))}

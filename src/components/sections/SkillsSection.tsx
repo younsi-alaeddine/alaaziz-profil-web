@@ -5,7 +5,7 @@ import { useSiteContent } from "@/components/SiteContentProvider";
 export function SkillsSection() {
   const { skills } = useSiteContent();
   return (
-    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <div className="grid sm:grid-cols-2 gap-6 md:gap-8 w-full">
       {skills.map((s, i) => (
         <div
           key={s.name}

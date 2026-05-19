@@ -8,7 +8,7 @@ export function AboutSection() {
   const { about, images } = useSiteContent();
 
   return (
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full">
       <div className="anim-l space-y-6">
         <p className="text-neutral-400 leading-relaxed">{about.bio}</p>
         <div className="grid sm:grid-cols-2 gap-4">

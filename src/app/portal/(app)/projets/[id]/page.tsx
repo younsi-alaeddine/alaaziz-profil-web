@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { requireClient } from "@/lib/auth-server";
+import { requirePortalAccess, portalDb } from "@/lib/portal-access";
 import { ClientProjectView } from "@/components/portal/ClientProjectView";
 import type {
   Invoice,
@@ -16,13 +16,14 @@ export default async function PortalProjectPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { supabase, client } = await requireClient();
+  const ctx = await requirePortalAccess();
+  const db = portalDb(ctx);
 
-  const { data: project } = await supabase
+  const { data: project } = await db
     .from("projects")
     .select("*")
     .eq("id", id)
-    .eq("client_id", client.id)
+    .eq("client_id", ctx.client.id)
     .maybeSingle();
 
   if (!project) notFound();
@@ -33,22 +34,19 @@ export default async function PortalProjectPage({
     { data: documents },
     { data: invoices },
   ] = await Promise.all([
-    supabase
+    db
       .from("project_stages")
       .select("*, project_validations(*)")
       .eq("project_id", id)
       .order("sort_order"),
-    supabase
-      .from("project_messages")
-      .select("*")
-      .eq("project_id", id)
-      .order("created_at"),
-    supabase.from("project_documents").select("*").eq("project_id", id),
-    supabase.from("invoices").select("*").eq("project_id", id),
+    db.from("project_messages").select("*").eq("project_id", id).order("created_at"),
+    db.from("project_documents").select("*").eq("project_id", id),
+    db.from("invoices").select("*").eq("project_id", id),
   ]);
 
   return (
     <ClientProjectView
+      guestMode={ctx.mode === "guest"}
       project={project as Project}
       stages={
         (stages as (ProjectStage & { project_validations: ProjectValidation | null })[]) ?? []

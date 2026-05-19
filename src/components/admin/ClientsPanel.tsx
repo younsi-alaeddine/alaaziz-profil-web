@@ -89,6 +89,15 @@ export function ClientsPanel({
                 <p className="font-semibold">{c.name}</p>
                 <p className="text-sm text-neutral-400">{c.email}</p>
                 {c.company && <p className="text-xs text-neutral-500 mt-1">{c.company}</p>}
+                {c.tracking_code ? (
+                  <p className="text-xs font-mono text-violet-300 mt-2">
+                    Code Suivi Express : {c.tracking_code}
+                  </p>
+                ) : (
+                  <p className="text-xs text-neutral-600 mt-2">
+                    Code suivi : généré à la création du premier projet
+                  </p>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 {c.user_id ? (
